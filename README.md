@@ -15,7 +15,8 @@
 [size-badge]: https://badgen.net/bundlephobia/minzip/otus
 [size-link]: https://bundlephobia.com/result?p=otus
 
-A modular JavaScript API for working with genetic algorithms.
+A modular JavaScript API for working with
+[genetic algorithms](https://en.wikipedia.org/wiki/Genetic_algorithm).
 
 ## Installation
 
@@ -30,6 +31,24 @@ Using `npm`:
 ```
 npm install otus --save
 ```
+
+## Features
+
+- Support for three modular exchangeable
+  [genetic operators](https://en.wikipedia.org/wiki/Genetic_operator)
+  (selection, crossover, mutation)
+- A ready-to-use implementation of each of the supported genetic operators:
+  - [Fitness proportionate selection](https://en.wikipedia.org/wiki/Fitness_proportionate_selection)
+    (via [stochastic acceptance](https://arxiv.org/abs/1109.3627))
+  - [Uniform crossover](<https://en.wikipedia.org/wiki/Crossover_(genetic_algorithm)#Uniform_crossover>)
+  - [Uniform mutation](<https://en.wikipedia.org/wiki/Mutation_(genetic_algorithm)>)
+- [Genetic representation](https://en.wikipedia.org/wiki/Genetic_representation)
+  using plain JavaScript objects
+- Support for [elitism](https://en.wikipedia.org/wiki/Genetic_algorithm#Elitism)
+- Support for adaptive parameters
+  ([adaptive genetic algorithms](https://en.wikipedia.org/wiki/Genetic_algorithm#Adaptive_GAs))
+- Immutable/functional API
+- Out-of-the-box support for TypeScript
 
 ## Development
 
