@@ -48,7 +48,66 @@ npm install otus --save
 - Support for adaptive parameters
   ([adaptive genetic algorithms](https://en.wikipedia.org/wiki/Genetic_algorithm#Adaptive_GAs))
 - Immutable/functional API
-- Out-of-the-box support for TypeScript
+- Built-in support for TypeScript
+
+## Usage example
+
+```js
+import * as otus from 'otus';
+```
+
+```js
+const smallNumberGenotype = {
+  base: otus.createFloatAllele(1, 10), // float between 1.0 (inclusive) and 10.0 (exclusive)
+  exponent: otus.createIntegerAllele(2, 4), // integer between 2 (inclusive) and 4 (inclusive)
+};
+```
+
+```js
+function isAnswerToEverything(smallNumberPhenotype) {
+  const number = Math.pow(
+    smallNumberPhenotype.base,
+    smallNumberPhenotype.exponent
+  );
+
+  return number === 42 ? Number.POSITIVE_INFINITY : 1 / Math.abs(42 - number);
+}
+```
+
+```js
+let state = {
+  genotype: smallNumberGenotype,
+  phenotypes: [],
+  populationSize: 1000,
+  elitePopulationSize: 1,
+  fitnessFunction: otus.cacheFitnessFunction(isAnswerToEverything),
+  selectionOperator: otus.createFitnessProportionateSelectionOperator(),
+  crossoverOperator: otus.createUniformCrossoverOperator(0.5),
+  mutationOperator: otus.createUniformMutationOperator(0.1),
+};
+```
+
+```js
+for (let i = 0; i < 100; i += 1) {
+  state = otus.geneticAlgorithm(state);
+}
+```
+
+```js
+const smallNumber = otus.getFittestPhenotype(state);
+```
+
+```js
+console.log(
+  'Almost the answer to everything:',
+  Math.pow(smallNumber.base, smallNumber.exponent),
+  smallNumber
+);
+```
+
+```
+Almost the answer to everything: 42.00712487685283 { base: 6.481290371280462, exponent: 2 }
+```
 
 ## Development
 
