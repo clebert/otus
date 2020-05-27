@@ -1,6 +1,6 @@
 {
   "name": "otus",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "A modular JavaScript API for working with genetic algorithms.",
   "bugs": {
     "url": "https://github.com/clebert/otus/issues"
