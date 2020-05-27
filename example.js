@@ -16,7 +16,7 @@ function isAnswerToEverything(smallNumberPhenotype) {
     smallNumberPhenotype.exponent
   );
 
-  return number === 42 ? Number.POSITIVE_INFINITY : 1 / Math.abs(42 - number);
+  return number === 42 ? Number.MAX_SAFE_INTEGER : 1 / Math.abs(42 - number);
 }
 
 /**

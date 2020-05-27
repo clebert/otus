@@ -70,7 +70,7 @@ function isAnswerToEverything(smallNumberPhenotype) {
     smallNumberPhenotype.exponent
   );
 
-  return number === 42 ? Number.POSITIVE_INFINITY : 1 / Math.abs(42 - number);
+  return number === 42 ? Number.MAX_SAFE_INTEGER : 1 / Math.abs(42 - number);
 }
 ```
 
@@ -106,7 +106,7 @@ console.log(
 ```
 
 ```
-Almost the answer to everything: 42.00712487685283 { base: 6.481290371280462, exponent: 2 }
+Almost the answer to everything: 42.00152713348122 { base: 6.480858518242874, exponent: 2 }
 ```
 
 ## Development
