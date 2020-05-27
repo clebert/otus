@@ -1,0 +1,54 @@
+{
+  "name": "otus",
+  "version": "0.0.0",
+  "description": "A modular JavaScript API for working with genetic algorithms.",
+  "bugs": {
+    "url": "https://github.com/clebert/otus/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clebert/otus.git"
+  },
+  "license": "MIT",
+  "author": "Clemens Akens <clebert@me.com>",
+  "sideEffects": false,
+  "main": "lib/cjs/index.js",
+  "module": "lib/esm/index.js",
+  "types": "lib/esm/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "prebuild": "rm -rf lib",
+    "build": "tsc --build tsconfig.cjs.json tsconfig.esm.json",
+    "ci": "run-p format:test lint test build",
+    "postci": "size-limit",
+    "format": "prettier --write '**/*.{html,js,json,md,ts,tsx,yml}'",
+    "format:test": "prettier --list-different '**/*.{html,js,json,md,ts,tsx,yml}'",
+    "lint": "tslint --config tslint.json --project tsconfig.json --format verbose",
+    "release": "npm version",
+    "postrelease": "git push --follow-tags",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.0",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.8.3",
+    "@babel/plugin-proposal-optional-chaining": "^7.10.0",
+    "@babel/preset-env": "^7.10.0",
+    "@babel/preset-typescript": "^7.9.0",
+    "@size-limit/preset-small-lib": "^4.5.0",
+    "@types/jest": "^25.2.3",
+    "jest": "^26.0.1",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.0.5",
+    "size-limit": "^4.5.0",
+    "tslint": "^6.1.2",
+    "typescript": "^3.9.3"
+  },
+  "size-limit": [
+    {
+      "path": "lib/esm/index.js",
+      "limit": "1 KB"
+    }
+  ]
+}
