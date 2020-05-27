@@ -94,19 +94,22 @@ for (let i = 0; i < 100; i += 1) {
 ```
 
 ```js
-const smallNumber = otus.getFittestPhenotype(state);
+const answerToEverythingPhenotype = otus.getFittestPhenotype(state);
 ```
 
 ```js
 console.log(
-  'Almost the answer to everything:',
-  Math.pow(smallNumber.base, smallNumber.exponent),
-  smallNumber
+  'The answer to everything:',
+  Math.pow(
+    answerToEverythingPhenotype.base,
+    answerToEverythingPhenotype.exponent
+  ),
+  answerToEverythingPhenotype
 );
 ```
 
 ```
-Almost the answer to everything: 42.00152713348122 { base: 6.480858518242874, exponent: 2 }
+The answer to everything: 42.00057578051458 { base: 3.4760425291663264, exponent: 3 }
 ```
 
 ## Development

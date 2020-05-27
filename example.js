@@ -37,10 +37,13 @@ for (let i = 0; i < 100; i += 1) {
   state = otus.geneticAlgorithm(state);
 }
 
-const smallNumber = otus.getFittestPhenotype(state);
+const answerToEverythingPhenotype = otus.getFittestPhenotype(state);
 
 console.log(
-  'Almost the answer to everything:',
-  Math.pow(smallNumber.base, smallNumber.exponent),
-  smallNumber
+  'The answer to everything:',
+  Math.pow(
+    answerToEverythingPhenotype.base,
+    answerToEverythingPhenotype.exponent
+  ),
+  answerToEverythingPhenotype
 );
