@@ -307,6 +307,9 @@ function createFloatAllele(
 ): Allele<number>;
 ```
 
+> The created allele returns a random float between min (inclusive) and max
+> (exclusive).
+
 ```ts
 function createIntegerAllele(
   min: number,
@@ -314,6 +317,9 @@ function createIntegerAllele(
   randomFunction?: () => number
 ): Allele<number>;
 ```
+
+> The created allele returns a random integer between min (inclusive) and max
+> (inclusive).
 
 ### Utility functions
 
