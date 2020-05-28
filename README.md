@@ -254,7 +254,86 @@ The answer to everything: 42.00057578051458 { base: 3.4760425291663264, exponent
 
 ## API reference
 
-TODO
+### Genetic algorithm
+
+```ts
+function geneticAlgorithm<TGenotype extends Genotype>(
+  state: GeneticAlgorithmState<TGenotype>
+): GeneticAlgorithmState<TGenotype>;
+```
+
+```ts
+interface GeneticAlgorithmState<TGenotype extends Genotype> {
+  readonly genotype: TGenotype;
+  readonly phenotypes: readonly Phenotype<TGenotype>[];
+  readonly populationSize: number;
+  readonly elitePopulationSize?: number;
+  readonly fitnessFunction: FitnessFunction<TGenotype>;
+  readonly selectionOperator: SelectionOperator<TGenotype>;
+  readonly crossoverOperator: CrossoverOperator<TGenotype>;
+  readonly mutationOperator: MutationOperator<TGenotype>;
+}
+```
+
+### Genetic operator factory functions
+
+```ts
+function createFitnessProportionateSelectionOperator<
+  TGenotype extends Genotype
+>(randomFunction?: () => number): SelectionOperator<TGenotype>;
+```
+
+```ts
+function createUniformCrossoverOperator<TGenotype extends Genotype>(
+  probability: number,
+  randomFunction?: () => number
+): CrossoverOperator<TGenotype>;
+```
+
+```ts
+function createUniformMutationOperator<TGenotype extends Genotype>(
+  probability: number,
+  randomFunction?: () => number
+): MutationOperator<TGenotype>;
+```
+
+### Allele factory functions
+
+```ts
+function createFloatAllele(
+  min: number,
+  max: number,
+  randomFunction?: () => number
+): Allele<number>;
+```
+
+```ts
+function createIntegerAllele(
+  min: number,
+  max: number,
+  randomFunction?: () => number
+): Allele<number>;
+```
+
+### Utils
+
+```ts
+function getFittestPhenotype<TGenotype extends Genotype>(
+  state: GeneticAlgorithmState<TGenotype>
+): Phenotype<TGenotype> | undefined;
+```
+
+```ts
+function cacheFitnessFunction<TGenotype extends Genotype>(
+  fitnessFunction: FitnessFunction<TGenotype>
+): FitnessFunction<TGenotype>;
+```
+
+```ts
+function createRandomPhenotype<TGenotype extends Genotype>(
+  genotype: TGenotype
+): Phenotype<TGenotype>;
+```
 
 ## Development
 
