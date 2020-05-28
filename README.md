@@ -18,6 +18,8 @@
 A modular JavaScript API for working with
 [genetic algorithms](https://en.wikipedia.org/wiki/Genetic_algorithm).
 
+<img src="./bird.jpg"/>
+
 ## Installation
 
 Using `yarn`:
