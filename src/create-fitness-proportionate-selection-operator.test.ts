@@ -2,7 +2,6 @@ import {
   Allele,
   Genotype,
   Phenotype,
-  SelectionOperator,
   createFitnessProportionateSelectionOperator,
 } from '.';
 
@@ -11,29 +10,23 @@ interface TestGenotype extends Genotype {
 }
 
 describe('createFitnessProportionateSelectionOperator()', () => {
-  let fitnessFunction: jest.Mock<number>;
-  let randomFunction: jest.Mock<number>;
-  let selectionOperator: SelectionOperator<TestGenotype>;
+  test('invalid arguments', () => {
+    expect(() =>
+      createFitnessProportionateSelectionOperator()([], () => 0)
+    ).toThrow(new Error('No phenotype available to select.'));
+  });
 
-  beforeEach(() => {
-    fitnessFunction = jest.fn(
+  test('fitness proportionate selection', () => {
+    const fitnessFunction = jest.fn(
       (phenotype: Phenotype<TestGenotype>) => phenotype.fitness
     );
 
-    randomFunction = jest.fn();
+    const randomFunction = jest.fn();
 
-    selectionOperator = createFitnessProportionateSelectionOperator(
-      randomFunction
-    );
-  });
+    const selectionOperator = createFitnessProportionateSelectionOperator<
+      TestGenotype
+    >(randomFunction);
 
-  test('failure in selecting a phenotype', () => {
-    expect(() => selectionOperator([], fitnessFunction)).toThrow(
-      new Error('No phenotype available to select.')
-    );
-  });
-
-  test('success in selecting a phenotype', () => {
     randomFunction.mockReturnValueOnce(0.75 /* random index = 3 */);
     randomFunction.mockReturnValueOnce(0.85 /* probability = 0.85 < 0.75 */);
     randomFunction.mockReturnValueOnce(0.25 /* random index = 1 */);
