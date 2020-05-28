@@ -1,19 +1,19 @@
-import {createFloatAllele} from './index';
+import * as otus from '.';
 
 describe('createFloatAllele()', () => {
   test('invalid arguments', () => {
-    expect(() => createFloatAllele(1, 1)).toThrow(
+    expect(() => otus.createFloatAllele(1, 1)).toThrow(
       new Error('The min must be less than the max.')
     );
 
-    expect(() => createFloatAllele(2, 1)).toThrow(
+    expect(() => otus.createFloatAllele(2, 1)).toThrow(
       new Error('The min must be less than the max.')
     );
   });
 
   test('random float generation', () => {
     const randomFunction = jest.fn();
-    const floatAllele = createFloatAllele(-5, 5, randomFunction);
+    const floatAllele = otus.createFloatAllele(-5, 5, randomFunction);
 
     randomFunction.mockReturnValueOnce(0.0);
     randomFunction.mockReturnValueOnce(0.1);

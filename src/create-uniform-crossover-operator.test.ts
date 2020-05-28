@@ -1,17 +1,17 @@
-import {Allele, Genotype, createUniformCrossoverOperator} from './index';
+import * as otus from '.';
 
-interface TestGenotype extends Genotype {
-  readonly geneA: Allele<string>;
-  readonly geneB: Allele<string>;
-  readonly geneC: Allele<string>;
-  readonly geneD: Allele<string>;
+interface TestGenotype extends otus.Genotype {
+  readonly geneA: otus.Allele<string>;
+  readonly geneB: otus.Allele<string>;
+  readonly geneC: otus.Allele<string>;
+  readonly geneD: otus.Allele<string>;
 }
 
 describe('createUniformCrossoverOperator()', () => {
   test('uniform crossover', () => {
     const randomFunction = jest.fn();
 
-    const crossoverOperator = createUniformCrossoverOperator<TestGenotype>(
+    const crossoverOperator = otus.createUniformCrossoverOperator<TestGenotype>(
       0.5,
       randomFunction
     );
@@ -27,8 +27,5 @@ describe('createUniformCrossoverOperator()', () => {
         {geneA: 'a2', geneB: 'b2', geneC: 'c2', geneD: 'd2'}
       )
     ).toEqual({geneA: 'a1', geneB: 'b1', geneC: 'c2', geneD: 'd2'});
-
-    // code coverage for random function default parameter
-    createUniformCrossoverOperator(0.85);
   });
 });

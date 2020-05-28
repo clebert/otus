@@ -25,7 +25,7 @@ function isAnswerToEverything(smallNumberPhenotype) {
 let state = {
   genotype: smallNumberGenotype,
   phenotypes: [],
-  populationSize: 1000,
+  populationSize: 100,
   elitePopulationSize: 1,
   fitnessFunction: otus.cacheFitnessFunction(isAnswerToEverything),
   selectionOperator: otus.createFitnessProportionateSelectionOperator(),

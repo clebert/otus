@@ -1,4 +1,3 @@
-import {createIntegerAllele} from './create-integer-allele';
 import {Genotype, SelectionOperator} from './types';
 
 export function createFitnessProportionateSelectionOperator<
@@ -10,19 +9,14 @@ export function createFitnessProportionateSelectionOperator<
       throw new Error('No phenotype available to select.');
     }
 
-    const getRandomIndex = createIntegerAllele(
-      0,
-      phenotypes.length - 1,
-      randomFunction
-    );
-
     const maxFitness = phenotypes.reduce(
       (fitness, phenotype) => Math.max(fitness, fitnessFunction(phenotype)),
       Number.NEGATIVE_INFINITY
     );
 
     while (true) {
-      const phenotype = phenotypes[getRandomIndex()];
+      const phenotype =
+        phenotypes[Math.floor(randomFunction() * phenotypes.length)];
 
       if (randomFunction() < fitnessFunction(phenotype) / maxFitness) {
         return phenotype;

@@ -1,17 +1,16 @@
-import {Allele, Genotype, getFittestPhenotype} from './index';
+import * as otus from '.';
 
-interface TestGenotype extends Genotype {
-  readonly fitness: Allele<number>;
+interface TestGenotype extends otus.Genotype {
+  readonly fitness: otus.Allele<number>;
 }
 
 describe('getFittestPhenotype()', () => {
   test('fittest phenotype', () => {
     expect(
-      getFittestPhenotype<TestGenotype>({
+      otus.getFittestPhenotype<TestGenotype>({
         genotype: {fitness: jest.fn()},
         phenotypes: [{fitness: -100}, {fitness: 100}, {fitness: 0}],
         populationSize: 100,
-        elitePopulationSize: 1,
         fitnessFunction: (phenotype) => phenotype.fitness,
         selectionOperator: jest.fn(),
         crossoverOperator: jest.fn(),

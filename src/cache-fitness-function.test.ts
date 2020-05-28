@@ -1,7 +1,7 @@
-import {Allele, Genotype, Phenotype, cacheFitnessFunction} from './index';
+import * as otus from '.';
 
-interface TestGenotype extends Genotype {
-  readonly fitness: Allele<number>;
+interface TestGenotype extends otus.Genotype {
+  readonly fitness: otus.Allele<number>;
 }
 
 describe('cacheFitnessFunction()', () => {
@@ -10,10 +10,10 @@ describe('cacheFitnessFunction()', () => {
     const phenotypeB = {fitness: 1};
 
     const fitnessFunction = jest.fn(
-      (phenotype: Phenotype<TestGenotype>) => phenotype.fitness
+      (phenotype: otus.Phenotype<TestGenotype>) => phenotype.fitness
     );
 
-    const cachedFitnessFunction = cacheFitnessFunction(fitnessFunction);
+    const cachedFitnessFunction = otus.cacheFitnessFunction(fitnessFunction);
 
     expect(cachedFitnessFunction(phenotypeA)).toBe(0);
     expect(cachedFitnessFunction(phenotypeB)).toBe(1);

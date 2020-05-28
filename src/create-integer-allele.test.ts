@@ -1,19 +1,19 @@
-import {createIntegerAllele} from './index';
+import * as otus from '.';
 
 describe('createIntegerAllele()', () => {
   test('invalid arguments', () => {
-    expect(() => createIntegerAllele(1, 1)).toThrow(
+    expect(() => otus.createIntegerAllele(1, 1)).toThrow(
       new Error('The min must be less than the max.')
     );
 
-    expect(() => createIntegerAllele(2, 1)).toThrow(
+    expect(() => otus.createIntegerAllele(2, 1)).toThrow(
       new Error('The min must be less than the max.')
     );
   });
 
   test('random integer generation', () => {
     const randomFunction = jest.fn();
-    const integerAllele = createIntegerAllele(-5, 5, randomFunction);
+    const integerAllele = otus.createIntegerAllele(-5, 5, randomFunction);
 
     randomFunction.mockReturnValueOnce(0.0);
     randomFunction.mockReturnValueOnce(0.1);

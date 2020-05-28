@@ -1,14 +1,17 @@
-import {Allele, Genotype, createRandomPhenotype} from './index';
+import * as otus from '.';
 
-interface TestGenotype extends Genotype {
-  readonly geneA: Allele<string>;
-  readonly geneB: Allele<string>;
+interface TestGenotype extends otus.Genotype {
+  readonly geneA: otus.Allele<string>;
+  readonly geneB: otus.Allele<string>;
 }
 
 describe('createRandomPhenotype()', () => {
   test('random phenotype creation', () => {
     expect(
-      createRandomPhenotype<TestGenotype>({geneA: () => 'a', geneB: () => 'b'})
+      otus.createRandomPhenotype<TestGenotype>({
+        geneA: () => 'a',
+        geneB: () => 'b',
+      })
     ).toEqual({geneA: 'a', geneB: 'b'});
   });
 });
