@@ -35,11 +35,15 @@ export function geneticAlgorithm<TGenotype extends Genotype>(
   const inputPhenotypes = [...state.phenotypes];
 
   if (inputPhenotypes.length > populationSize) {
-    throw new Error('TODO1');
+    throw new Error(
+      'There are more phenotypes than the population size allows.'
+    );
   }
 
   if (elitePopulationSize >= populationSize) {
-    throw new Error('TODO2');
+    throw new Error(
+      'The elite population size must be smaller than the total population size.'
+    );
   }
 
   while (inputPhenotypes.length < populationSize) {
