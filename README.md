@@ -254,7 +254,7 @@ The answer to everything: 42.00057578051458 { base: 3.4760425291663264, exponent
 
 ## API reference
 
-### Genetic algorithm
+### Genetic algorithm function
 
 ```ts
 function geneticAlgorithm<TGenotype extends Genotype>(
@@ -315,7 +315,7 @@ function createIntegerAllele(
 ): Allele<number>;
 ```
 
-### Utils
+### Utility functions
 
 ```ts
 function getFittestPhenotype<TGenotype extends Genotype>(
