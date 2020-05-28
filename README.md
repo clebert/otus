@@ -102,8 +102,8 @@ type Phenotype<TGenotype extends Genotype> = {
 
 ### [Gene](https://en.wikipedia.org/wiki/Gene)
 
-A gene represents a concrete property of a candidate solution which can be
-mutated and altered.
+A gene represents a concrete property of a solution which can be mutated and
+altered.
 
 <details>
   <summary>Type definition</summary>
@@ -119,7 +119,7 @@ type Gene<
 
 ### [Selection operator](<https://en.wikipedia.org/wiki/Selection_(genetic_algorithm)>)
 
-The selection operator is used to select individual phenotypes from a population
+The selection operator is used to select individual solutions from a population
 for later breeding (using the crossover operator). The selection is usually
 based on the fitness of each individual, which is determined by a fitness
 function.
@@ -140,8 +140,8 @@ type SelectionOperator<TGenotype extends Genotype> = (
 
 A fitness function is a particular type of
 [objective function](https://en.wikipedia.org/wiki/Loss_function) that is used
-to summarise, as a single figure of merit, how close a given candidate solution
-is to achieving the set aims.
+to summarise, as a single figure of merit, how close a given solution is to
+achieving the set aims.
 
 <details>
   <summary>Type definition</summary>
