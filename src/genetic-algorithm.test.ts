@@ -41,8 +41,14 @@ describe('geneticAlgorithm()', () => {
   test('elitism', () => {
     const state = otus.geneticAlgorithm<TestGenotype>({
       genotype: {fitness: () => 0},
-      phenotypes: [{fitness: 75}, {fitness: 25}, {fitness: 50}, {fitness: 100}],
-      populationSize: 4,
+      phenotypes: [
+        {fitness: 75},
+        {fitness: 25},
+        {fitness: 50},
+        {fitness: -100},
+        {fitness: 100},
+      ],
+      populationSize: 5,
       elitePopulationSize: 2,
       fitnessFunction: otus.cacheFitnessFunction(
         (phenotype) => phenotype.fitness
@@ -57,14 +63,21 @@ describe('geneticAlgorithm()', () => {
       {fitness: 75},
       {fitness: 0},
       {fitness: 0},
+      {fitness: 0},
     ]);
   });
 
   test('no elitism', () => {
     const state = otus.geneticAlgorithm<TestGenotype>({
       genotype: {fitness: () => 0},
-      phenotypes: [{fitness: 75}, {fitness: 25}, {fitness: 50}, {fitness: 100}],
-      populationSize: 4,
+      phenotypes: [
+        {fitness: 75},
+        {fitness: 25},
+        {fitness: 50},
+        {fitness: -100},
+        {fitness: 100},
+      ],
+      populationSize: 5,
       fitnessFunction: otus.cacheFitnessFunction(
         (phenotype) => phenotype.fitness
       ),
@@ -74,6 +87,7 @@ describe('geneticAlgorithm()', () => {
     });
 
     expect(state.phenotypes).toEqual([
+      {fitness: 0},
       {fitness: 0},
       {fitness: 0},
       {fitness: 0},
