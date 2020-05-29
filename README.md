@@ -15,7 +15,7 @@
 [size-badge]: https://badgen.net/bundlephobia/minzip/otus
 [size-link]: https://bundlephobia.com/result?p=otus
 
-A modular JavaScript API for working with
+A modular JavaScript API for programming with
 [genetic algorithms](https://en.wikipedia.org/wiki/Genetic_algorithm).
 
 <img src="./bird.jpg"/>

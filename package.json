@@ -1,12 +1,12 @@
 {
   "name": "otus",
   "version": "0.1.2",
-  "description": "A modular JavaScript API for working with genetic algorithms.",
+  "description": "A modular JavaScript API for programming with genetic algorithms.",
   "keywords": [
     "genetic algorithm",
     "genetic-algorithm",
-    "genetic",
-    "algorithm"
+    "genetic programming",
+    "genetic-programming"
   ],
   "bugs": {
     "url": "https://github.com/clebert/otus/issues"
