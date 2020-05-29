@@ -1,35 +1,15 @@
 import * as otus from '.';
 
-interface SmallNumberGenotype extends otus.Genotype {
-  readonly base: otus.Allele<number>;
-  readonly exponent: otus.Allele<number>;
-}
-
-const smallNumberGenotype: SmallNumberGenotype = {
-  base: otus.createFloatAllele(1, 10),
-  exponent: otus.createIntegerAllele(2, 4),
-};
-
-function isAnswerToEverything(
-  smallNumberPhenotype: otus.Phenotype<SmallNumberGenotype>
-): number {
-  const number = Math.pow(
-    smallNumberPhenotype.base,
-    smallNumberPhenotype.exponent
-  );
-
-  return number === 42 ? Number.MAX_SAFE_INTEGER : 1 / Math.abs(42 - number);
+interface TestGenotype extends otus.Genotype {
+  readonly fitness: otus.Allele<number>;
 }
 
 describe('geneticAlgorithm()', () => {
   test('invalid arguments', () => {
     expect(() =>
-      otus.geneticAlgorithm({
-        genotype: smallNumberGenotype,
-        phenotypes: [
-          {base: 1, exponent: 2},
-          {base: 3, exponent: 4},
-        ],
+      otus.geneticAlgorithm<TestGenotype>({
+        genotype: {fitness: jest.fn()},
+        phenotypes: [{fitness: 75}, {fitness: 100}],
         populationSize: 1,
         fitnessFunction: jest.fn(),
         selectionOperator: jest.fn(),
@@ -42,11 +22,8 @@ describe('geneticAlgorithm()', () => {
 
     expect(() =>
       otus.geneticAlgorithm({
-        genotype: smallNumberGenotype,
-        phenotypes: [
-          {base: 1, exponent: 2},
-          {base: 3, exponent: 4},
-        ],
+        genotype: {fitness: jest.fn()},
+        phenotypes: [{fitness: 75}, {fitness: 100}],
         populationSize: 2,
         elitePopulationSize: 2,
         fitnessFunction: jest.fn(),
@@ -61,45 +38,73 @@ describe('geneticAlgorithm()', () => {
     );
   });
 
-  test('no elitism', () => {
-    const answerToEverythingPhenotype: otus.Phenotype<SmallNumberGenotype> = {
-      base: Math.sqrt(42),
-      exponent: 2,
-    };
-
-    expect(
-      Math.pow(
-        answerToEverythingPhenotype.base,
-        answerToEverythingPhenotype.exponent
-      )
-    ).toBe(42);
-
-    const state = otus.geneticAlgorithm<SmallNumberGenotype>({
-      genotype: {base: () => Math.sqrt(49), exponent: () => 2},
-      phenotypes: [answerToEverythingPhenotype, answerToEverythingPhenotype],
-      populationSize: 2,
-      fitnessFunction: otus.cacheFitnessFunction(isAnswerToEverything),
+  test('elitism', () => {
+    const state = otus.geneticAlgorithm<TestGenotype>({
+      genotype: {fitness: () => 0},
+      phenotypes: [{fitness: 75}, {fitness: 25}, {fitness: 50}, {fitness: 100}],
+      populationSize: 4,
+      elitePopulationSize: 2,
+      fitnessFunction: otus.cacheFitnessFunction(
+        (phenotype) => phenotype.fitness
+      ),
       selectionOperator: otus.createFitnessProportionateSelectionOperator(),
-      crossoverOperator: otus.createUniformCrossoverOperator(0.5),
+      crossoverOperator: otus.createUniformCrossoverOperator(0),
       mutationOperator: otus.createUniformMutationOperator(1),
     });
 
-    const answerToNothingPhenotype = otus.getFittestPhenotype(state);
+    expect(state.phenotypes).toEqual([
+      {fitness: 100},
+      {fitness: 75},
+      {fitness: 0},
+      {fitness: 0},
+    ]);
+  });
 
-    const answerToNothing = Math.pow(
-      answerToNothingPhenotype!.base,
-      answerToNothingPhenotype!.exponent
-    );
+  test('no elitism', () => {
+    const state = otus.geneticAlgorithm<TestGenotype>({
+      genotype: {fitness: () => 0},
+      phenotypes: [{fitness: 75}, {fitness: 25}, {fitness: 50}, {fitness: 100}],
+      populationSize: 4,
+      fitnessFunction: otus.cacheFitnessFunction(
+        (phenotype) => phenotype.fitness
+      ),
+      selectionOperator: otus.createFitnessProportionateSelectionOperator(),
+      crossoverOperator: otus.createUniformCrossoverOperator(0),
+      mutationOperator: otus.createUniformMutationOperator(1),
+    });
 
-    expect(answerToNothing).toBe(49);
+    expect(state.phenotypes).toEqual([
+      {fitness: 0},
+      {fitness: 0},
+      {fitness: 0},
+      {fitness: 0},
+    ]);
   });
 
   test('answer to everything', () => {
-    let state: otus.GeneticAlgorithmState<SmallNumberGenotype> = {
+    const smallNumberGenotype = {
+      base: otus.createFloatAllele(1, 10),
+      exponent: otus.createIntegerAllele(2, 4),
+    };
+
+    function isAnswerToEverything(
+      smallNumberPhenotype: otus.Phenotype<typeof smallNumberGenotype>
+    ): number {
+      const number = Math.pow(
+        smallNumberPhenotype.base,
+        smallNumberPhenotype.exponent
+      );
+
+      return number === 42
+        ? Number.MAX_SAFE_INTEGER
+        : 1 / Math.abs(42 - number);
+    }
+
+    let state: otus.GeneticAlgorithmState<typeof smallNumberGenotype> = {
       genotype: smallNumberGenotype,
       phenotypes: [],
       populationSize: 100,
-      elitePopulationSize: 1,
+      elitePopulationSize: 2,
       fitnessFunction: otus.cacheFitnessFunction(isAnswerToEverything),
       selectionOperator: otus.createFitnessProportionateSelectionOperator(),
       crossoverOperator: otus.createUniformCrossoverOperator(0.5),

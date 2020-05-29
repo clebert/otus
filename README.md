@@ -51,6 +51,7 @@ npm install otus --save
   ([adaptive genetic algorithms](https://en.wikipedia.org/wiki/Genetic_algorithm#Adaptive_GAs))
 - Immutable/functional API
 - Built-in support for TypeScript
+- No dependencies
 
 ## Terminology
 
@@ -221,7 +222,7 @@ let state = {
   genotype: smallNumberGenotype,
   phenotypes: [],
   populationSize: 100,
-  elitePopulationSize: 1,
+  elitePopulationSize: 2,
   fitnessFunction: otus.cacheFitnessFunction(isAnswerToEverything),
   selectionOperator: otus.createFitnessProportionateSelectionOperator(),
   crossoverOperator: otus.createUniformCrossoverOperator(0.5),

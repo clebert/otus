@@ -26,7 +26,7 @@ let state = {
   genotype: smallNumberGenotype,
   phenotypes: [],
   populationSize: 100,
-  elitePopulationSize: 1,
+  elitePopulationSize: 2,
   fitnessFunction: otus.cacheFitnessFunction(isAnswerToEverything),
   selectionOperator: otus.createFitnessProportionateSelectionOperator(),
   crossoverOperator: otus.createUniformCrossoverOperator(0.5),
