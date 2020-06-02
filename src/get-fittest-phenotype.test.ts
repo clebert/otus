@@ -10,7 +10,7 @@ describe('getFittestPhenotype()', () => {
       otus.getFittestPhenotype<TestGenotype>({
         genotype: {fitness: jest.fn()},
         phenotypes: [{fitness: -100}, {fitness: 100}, {fitness: 0}],
-        populationSize: 100,
+        populationSize: 3,
         fitnessFunction: (phenotype) => phenotype.fitness,
         selectionOperator: jest.fn(),
         crossoverOperator: jest.fn(),
