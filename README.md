@@ -22,14 +22,6 @@ A modular JavaScript API for programming with
 
 ## Installation
 
-Using `yarn`:
-
-```
-yarn add otus
-```
-
-Using `npm`:
-
 ```
 npm install otus --save
 ```
@@ -349,15 +341,15 @@ function createRandomPhenotype<TGenotype extends Genotype>(
 ### Publishing a new release
 
 ```
-yarn release patch
+npm run release patch
 ```
 
 ```
-yarn release minor
+npm run release minor
 ```
 
 ```
-yarn release major
+npm run release major
 ```
 
 After a new release has been created by pushing the tag, it must be published

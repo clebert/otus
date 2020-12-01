@@ -18,9 +18,9 @@ describe('createFitnessProportionateSelectionOperator()', () => {
 
     const randomFunction = jest.fn();
 
-    const selectionOperator = otus.createFitnessProportionateSelectionOperator<
-      TestGenotype
-    >(randomFunction);
+    const selectionOperator = otus.createFitnessProportionateSelectionOperator<TestGenotype>(
+      randomFunction
+    );
 
     randomFunction.mockReturnValueOnce(0);
     randomFunction.mockReturnValueOnce(0);
@@ -37,9 +37,9 @@ describe('createFitnessProportionateSelectionOperator()', () => {
 
     const randomFunction = jest.fn();
 
-    const selectionOperator = otus.createFitnessProportionateSelectionOperator<
-      TestGenotype
-    >(randomFunction);
+    const selectionOperator = otus.createFitnessProportionateSelectionOperator<TestGenotype>(
+      randomFunction
+    );
 
     randomFunction.mockReturnValueOnce(0.75 /* random index = 3 */);
     randomFunction.mockReturnValueOnce(0.85 /* probability = 0.85 < 0.75 */);

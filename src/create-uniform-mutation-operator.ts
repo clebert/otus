@@ -8,7 +8,7 @@ export function createUniformMutationOperator<TGenotype extends Genotype>(
     Object.keys(phenotype).reduce((newPhenotype, geneName) => {
       newPhenotype[geneName] =
         randomFunction() < probability
-          ? genotype[geneName]()
+          ? genotype[geneName]!()
           : phenotype[geneName];
 
       return newPhenotype;

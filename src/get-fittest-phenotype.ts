@@ -6,11 +6,13 @@ export function getFittestPhenotype<TGenotype extends Genotype>(
 ): Phenotype<TGenotype> | undefined {
   const {phenotypes, fitnessFunction} = state;
 
-  return phenotypes?.reduce(
-    (fittestPhenotype, phenotype) =>
-      fitnessFunction(phenotype) > fitnessFunction(fittestPhenotype)
-        ? phenotype
-        : fittestPhenotype,
-    phenotypes?.[0]
-  );
+  return phenotypes.length
+    ? phenotypes.reduce(
+        (fittestPhenotype, phenotype) =>
+          fitnessFunction(phenotype) > fitnessFunction(fittestPhenotype)
+            ? phenotype
+            : fittestPhenotype,
+        phenotypes[0]!
+      )
+    : undefined;
 }

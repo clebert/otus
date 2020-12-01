@@ -18,4 +18,18 @@ describe('getFittestPhenotype()', () => {
       })
     ).toEqual({fitness: 100});
   });
+
+  test('empty phenotypes', () => {
+    expect(
+      otus.getFittestPhenotype<TestGenotype>({
+        genotype: {fitness: jest.fn()},
+        phenotypes: [],
+        populationSize: 3,
+        fitnessFunction: jest.fn(),
+        selectionOperator: jest.fn(),
+        crossoverOperator: jest.fn(),
+        mutationOperator: jest.fn(),
+      })
+    ).toBe(undefined);
+  });
 });

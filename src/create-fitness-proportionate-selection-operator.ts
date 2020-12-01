@@ -15,8 +15,9 @@ export function createFitnessProportionateSelectionOperator<
     );
 
     while (true) {
-      const phenotype =
-        phenotypes[Math.floor(randomFunction() * phenotypes.length)];
+      const phenotype = phenotypes[
+        Math.floor(randomFunction() * phenotypes.length)
+      ]!;
 
       if (randomFunction() < fitnessFunction(phenotype) / maxFitness) {
         return phenotype;
