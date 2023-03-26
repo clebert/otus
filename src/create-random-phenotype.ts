@@ -1,4 +1,4 @@
-import {type Genotype, type Phenotype} from './types.js';
+import type {Genotype, Phenotype} from './types.js';
 
 export function createRandomPhenotype<TGenotype extends Genotype>(
   genotype: TGenotype,

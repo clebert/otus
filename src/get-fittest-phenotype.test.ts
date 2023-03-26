@@ -1,12 +1,12 @@
 import {describe, expect, jest, test} from '@jest/globals';
 import {getFittestPhenotype} from './get-fittest-phenotype.js';
-import {
-  type Allele,
-  type CrossoverOperator,
-  type FitnessFunction,
-  type Genotype,
-  type MutationOperator,
-  type SelectionOperator,
+import type {
+  Allele,
+  CrossoverOperator,
+  FitnessFunction,
+  Genotype,
+  MutationOperator,
+  SelectionOperator,
 } from './types.js';
 
 interface TestGenotype extends Genotype {

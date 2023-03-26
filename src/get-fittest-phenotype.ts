@@ -1,5 +1,5 @@
-import {type GeneticAlgorithmState} from './genetic-algorithm.js';
-import {type Genotype, type Phenotype} from './types.js';
+import type {GeneticAlgorithmState} from './genetic-algorithm.js';
+import type {Genotype, Phenotype} from './types.js';
 
 export function getFittestPhenotype<TGenotype extends Genotype>(
   state: GeneticAlgorithmState<TGenotype>,

@@ -5,19 +5,17 @@ import {createFloatAllele} from './create-float-allele.js';
 import {createIntegerAllele} from './create-integer-allele.js';
 import {createUniformCrossoverOperator} from './create-uniform-crossover-operator.js';
 import {createUniformMutationOperator} from './create-uniform-mutation-operator.js';
-import {
-  type GeneticAlgorithmState,
-  geneticAlgorithm,
-} from './genetic-algorithm.js';
+import type {GeneticAlgorithmState} from './genetic-algorithm.js';
+import {geneticAlgorithm} from './genetic-algorithm.js';
 import {getFittestPhenotype} from './get-fittest-phenotype.js';
-import {
-  type Allele,
-  type CrossoverOperator,
-  type FitnessFunction,
-  type Genotype,
-  type MutationOperator,
-  type Phenotype,
-  type SelectionOperator,
+import type {
+  Allele,
+  CrossoverOperator,
+  FitnessFunction,
+  Genotype,
+  MutationOperator,
+  Phenotype,
+  SelectionOperator,
 } from './types.js';
 
 interface TestGenotype extends Genotype {

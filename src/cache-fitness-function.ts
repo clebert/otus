@@ -1,4 +1,4 @@
-import {type FitnessFunction, type Genotype, type Phenotype} from './types.js';
+import type {FitnessFunction, Genotype, Phenotype} from './types.js';
 
 export function cacheFitnessFunction<TGenotype extends Genotype>(
   fitnessFunction: FitnessFunction<TGenotype>,

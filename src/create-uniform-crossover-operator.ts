@@ -1,8 +1,4 @@
-import {
-  type CrossoverOperator,
-  type Genotype,
-  type Phenotype,
-} from './types.js';
+import type {CrossoverOperator, Genotype, Phenotype} from './types.js';
 
 export function createUniformCrossoverOperator<TGenotype extends Genotype>(
   probability: number,

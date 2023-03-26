@@ -1,4 +1,4 @@
-import {type Allele} from './types.js';
+import type {Allele} from './types.js';
 
 /**
  * The created allele returns a random float between min (inclusive) and max (exclusive).

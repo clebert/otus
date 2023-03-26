@@ -1,6 +1,6 @@
 import {describe, expect, jest, test} from '@jest/globals';
 import {createFitnessProportionateSelectionOperator} from './create-fitness-proportionate-selection-operator.js';
-import {type Allele, type Genotype, type Phenotype} from './types.js';
+import type {Allele, Genotype, Phenotype} from './types.js';
 
 interface TestGenotype extends Genotype {
   readonly fitness: Allele<number>;

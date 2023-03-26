@@ -1,4 +1,4 @@
-import {type Genotype, type SelectionOperator} from './types.js';
+import type {Genotype, SelectionOperator} from './types.js';
 
 export function createFitnessProportionateSelectionOperator<
   TGenotype extends Genotype,

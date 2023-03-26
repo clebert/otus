@@ -1,4 +1,4 @@
-import {type Genotype, type MutationOperator, type Phenotype} from './types.js';
+import type {Genotype, MutationOperator, Phenotype} from './types.js';
 
 export function createUniformMutationOperator<TGenotype extends Genotype>(
   probability: number,
