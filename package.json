@@ -1,6 +1,6 @@
 {
   "name": "otus",
-  "version": "0.1.4",
+  "version": "1.0.0",
   "description": "A modular JavaScript API for programming with genetic algorithms.",
   "repository": {
     "type": "git",
