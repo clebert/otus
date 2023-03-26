@@ -1,5 +1,3 @@
-import {describe, expect, jest, test} from '@jest/globals';
-import {getFittestPhenotype} from './get-fittest-phenotype.js';
 import type {
   Allele,
   CrossoverOperator,
@@ -8,6 +6,9 @@ import type {
   MutationOperator,
   SelectionOperator,
 } from './types.js';
+
+import {getFittestPhenotype} from './get-fittest-phenotype.js';
+import {describe, expect, jest, test} from '@jest/globals';
 
 interface TestGenotype extends Genotype {
   readonly fitness: Allele<number>;

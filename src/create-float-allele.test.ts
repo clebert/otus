@@ -1,5 +1,5 @@
-import {describe, expect, jest, test} from '@jest/globals';
 import {createFloatAllele} from './create-float-allele.js';
+import {describe, expect, jest, test} from '@jest/globals';
 
 describe(`createFloatAllele()`, () => {
   test(`invalid arguments`, () => {

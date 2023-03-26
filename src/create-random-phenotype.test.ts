@@ -1,6 +1,7 @@
-import {describe, expect, test} from '@jest/globals';
-import {createRandomPhenotype} from './create-random-phenotype.js';
 import type {Allele, Genotype} from './types.js';
+
+import {createRandomPhenotype} from './create-random-phenotype.js';
+import {describe, expect, test} from '@jest/globals';
 
 interface TestGenotype extends Genotype {
   readonly geneA: Allele<string>;

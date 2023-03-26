@@ -1,4 +1,3 @@
-import {createRandomPhenotype} from './create-random-phenotype.js';
 import type {
   CrossoverOperator,
   FitnessFunction,
@@ -7,6 +6,8 @@ import type {
   Phenotype,
   SelectionOperator,
 } from './types.js';
+
+import {createRandomPhenotype} from './create-random-phenotype.js';
 
 export interface GeneticAlgorithmState<TGenotype extends Genotype> {
   readonly genotype: TGenotype;

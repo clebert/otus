@@ -1,13 +1,4 @@
-import {describe, expect, jest, test} from '@jest/globals';
-import {cacheFitnessFunction} from './cache-fitness-function.js';
-import {createFitnessProportionateSelectionOperator} from './create-fitness-proportionate-selection-operator.js';
-import {createFloatAllele} from './create-float-allele.js';
-import {createIntegerAllele} from './create-integer-allele.js';
-import {createUniformCrossoverOperator} from './create-uniform-crossover-operator.js';
-import {createUniformMutationOperator} from './create-uniform-mutation-operator.js';
 import type {GeneticAlgorithmState} from './genetic-algorithm.js';
-import {geneticAlgorithm} from './genetic-algorithm.js';
-import {getFittestPhenotype} from './get-fittest-phenotype.js';
 import type {
   Allele,
   CrossoverOperator,
@@ -17,6 +8,16 @@ import type {
   Phenotype,
   SelectionOperator,
 } from './types.js';
+
+import {cacheFitnessFunction} from './cache-fitness-function.js';
+import {createFitnessProportionateSelectionOperator} from './create-fitness-proportionate-selection-operator.js';
+import {createFloatAllele} from './create-float-allele.js';
+import {createIntegerAllele} from './create-integer-allele.js';
+import {createUniformCrossoverOperator} from './create-uniform-crossover-operator.js';
+import {createUniformMutationOperator} from './create-uniform-mutation-operator.js';
+import {geneticAlgorithm} from './genetic-algorithm.js';
+import {getFittestPhenotype} from './get-fittest-phenotype.js';
+import {describe, expect, jest, test} from '@jest/globals';
 
 interface TestGenotype extends Genotype {
   readonly fitness: Allele<number>;

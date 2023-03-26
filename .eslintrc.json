@@ -154,7 +154,16 @@
         "alphabetize": {
           "order": "asc"
         },
-        "newlines-between": "never",
+        "groups": [
+          "type",
+          [
+            "builtin",
+            "external",
+            "parent",
+            "sibling"
+          ]
+        ],
+        "newlines-between": "always",
         "warnOnUnassignedImports": true
       }
     ],

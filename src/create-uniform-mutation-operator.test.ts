@@ -1,6 +1,7 @@
-import {describe, expect, jest, test} from '@jest/globals';
-import {createUniformMutationOperator} from './create-uniform-mutation-operator.js';
 import type {Allele, Genotype} from './types.js';
+
+import {createUniformMutationOperator} from './create-uniform-mutation-operator.js';
+import {describe, expect, jest, test} from '@jest/globals';
 
 interface TestGenotype extends Genotype {
   readonly geneA: Allele<string>;

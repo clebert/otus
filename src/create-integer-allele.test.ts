@@ -1,5 +1,5 @@
-import {describe, expect, jest, test} from '@jest/globals';
 import {createIntegerAllele} from './create-integer-allele.js';
+import {describe, expect, jest, test} from '@jest/globals';
 
 describe(`createIntegerAllele()`, () => {
   test(`invalid arguments`, () => {

@@ -1,6 +1,7 @@
-import {describe, expect, jest, test} from '@jest/globals';
-import {cacheFitnessFunction} from './cache-fitness-function.js';
 import type {Allele, Genotype, Phenotype} from './types.js';
+
+import {cacheFitnessFunction} from './cache-fitness-function.js';
+import {describe, expect, jest, test} from '@jest/globals';
 
 interface TestGenotype extends Genotype {
   readonly fitness: Allele<number>;
