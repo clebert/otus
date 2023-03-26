@@ -1,12 +1,12 @@
-import {createRandomPhenotype} from './create-random-phenotype';
+import {createRandomPhenotype} from './create-random-phenotype.js';
 import {
-  CrossoverOperator,
-  FitnessFunction,
-  Genotype,
-  MutationOperator,
-  Phenotype,
-  SelectionOperator,
-} from './types';
+  type CrossoverOperator,
+  type FitnessFunction,
+  type Genotype,
+  type MutationOperator,
+  type Phenotype,
+  type SelectionOperator,
+} from './types.js';
 
 export interface GeneticAlgorithmState<TGenotype extends Genotype> {
   readonly genotype: TGenotype;
@@ -20,7 +20,7 @@ export interface GeneticAlgorithmState<TGenotype extends Genotype> {
 }
 
 export function geneticAlgorithm<TGenotype extends Genotype>(
-  state: GeneticAlgorithmState<TGenotype>
+  state: GeneticAlgorithmState<TGenotype>,
 ): GeneticAlgorithmState<TGenotype> {
   const {
     genotype,
@@ -36,13 +36,13 @@ export function geneticAlgorithm<TGenotype extends Genotype>(
 
   if (inputPhenotypes.length > populationSize) {
     throw new Error(
-      'There are more phenotypes than the population size allows.'
+      `There are more phenotypes than the population size allows.`,
     );
   }
 
   if (elitePopulationSize >= populationSize) {
     throw new Error(
-      'The elite population size must be smaller than the total population size.'
+      `The elite population size must be smaller than the total population size.`,
     );
   }
 
@@ -55,7 +55,7 @@ export function geneticAlgorithm<TGenotype extends Genotype>(
   if (elitePopulationSize > 0) {
     inputPhenotypes.sort(
       (phenotypeA, phenotypeB) =>
-        fitnessFunction(phenotypeB) - fitnessFunction(phenotypeA)
+        fitnessFunction(phenotypeB) - fitnessFunction(phenotypeA),
     );
 
     outputPhenotypes.push(...inputPhenotypes.slice(0, elitePopulationSize));
@@ -66,10 +66,10 @@ export function geneticAlgorithm<TGenotype extends Genotype>(
       mutationOperator(
         crossoverOperator(
           selectionOperator(inputPhenotypes, fitnessFunction),
-          selectionOperator(inputPhenotypes, fitnessFunction)
+          selectionOperator(inputPhenotypes, fitnessFunction),
         ),
-        genotype
-      )
+        genotype,
+      ),
     );
   }
 

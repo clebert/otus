@@ -1,8 +1,8 @@
-import {GeneticAlgorithmState} from './genetic-algorithm';
-import {Genotype, Phenotype} from './types';
+import {type GeneticAlgorithmState} from './genetic-algorithm.js';
+import {type Genotype, type Phenotype} from './types.js';
 
 export function getFittestPhenotype<TGenotype extends Genotype>(
-  state: GeneticAlgorithmState<TGenotype>
+  state: GeneticAlgorithmState<TGenotype>,
 ): Phenotype<TGenotype> | undefined {
   const {phenotypes, fitnessFunction} = state;
 
@@ -12,7 +12,7 @@ export function getFittestPhenotype<TGenotype extends Genotype>(
           fitnessFunction(phenotype) > fitnessFunction(fittestPhenotype)
             ? phenotype
             : fittestPhenotype,
-        phenotypes[0]!
+        phenotypes[0]!,
       )
     : undefined;
 }

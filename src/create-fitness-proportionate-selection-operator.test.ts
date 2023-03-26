@@ -1,26 +1,27 @@
-import * as otus from '.';
+import {describe, expect, jest, test} from '@jest/globals';
+import {createFitnessProportionateSelectionOperator} from './create-fitness-proportionate-selection-operator.js';
+import {type Allele, type Genotype, type Phenotype} from './types.js';
 
-interface TestGenotype extends otus.Genotype {
-  readonly fitness: otus.Allele<number>;
+interface TestGenotype extends Genotype {
+  readonly fitness: Allele<number>;
 }
 
-describe('createFitnessProportionateSelectionOperator()', () => {
-  test('invalid arguments', () => {
+describe(`createFitnessProportionateSelectionOperator()`, () => {
+  test(`invalid arguments`, () => {
     expect(() =>
-      otus.createFitnessProportionateSelectionOperator()([], () => 0)
-    ).toThrow(new Error('No phenotype available to select.'));
+      createFitnessProportionateSelectionOperator()([], () => 0),
+    ).toThrow(new Error(`No phenotype available to select.`));
   });
 
-  test('fitness proportionate selection (single individual)', () => {
+  test(`fitness proportionate selection (single individual)`, () => {
     const fitnessFunction = jest.fn(
-      (phenotype: otus.Phenotype<TestGenotype>) => phenotype.fitness
+      (phenotype: Phenotype<TestGenotype>) => phenotype.fitness,
     );
 
-    const randomFunction = jest.fn();
+    const randomFunction = jest.fn<() => number>();
 
-    const selectionOperator = otus.createFitnessProportionateSelectionOperator<TestGenotype>(
-      randomFunction
-    );
+    const selectionOperator =
+      createFitnessProportionateSelectionOperator<TestGenotype>(randomFunction);
 
     randomFunction.mockReturnValueOnce(0);
     randomFunction.mockReturnValueOnce(0);
@@ -30,16 +31,15 @@ describe('createFitnessProportionateSelectionOperator()', () => {
     });
   });
 
-  test('fitness proportionate selection (several individuals)', () => {
+  test(`fitness proportionate selection (several individuals)`, () => {
     const fitnessFunction = jest.fn(
-      (phenotype: otus.Phenotype<TestGenotype>) => phenotype.fitness
+      (phenotype: Phenotype<TestGenotype>) => phenotype.fitness,
     );
 
-    const randomFunction = jest.fn();
+    const randomFunction = jest.fn<() => number>();
 
-    const selectionOperator = otus.createFitnessProportionateSelectionOperator<TestGenotype>(
-      randomFunction
-    );
+    const selectionOperator =
+      createFitnessProportionateSelectionOperator<TestGenotype>(randomFunction);
 
     randomFunction.mockReturnValueOnce(0.75 /* random index = 3 */);
     randomFunction.mockReturnValueOnce(0.85 /* probability = 0.85 < 0.75 */);
@@ -56,8 +56,8 @@ describe('createFitnessProportionateSelectionOperator()', () => {
           {fitness: 20}, // 20 / 20 = 1
           {fitness: 15}, // 15 / 20 = 0.75
         ],
-        fitnessFunction
-      )
+        fitnessFunction,
+      ),
     ).toEqual({fitness: 5});
   });
 });

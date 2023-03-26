@@ -1,27 +1,12 @@
 # Otus
 
-[![][ci-badge]][ci-link] [![][version-badge]][version-link]
-[![][license-badge]][license-link] [![][types-badge]][types-link]
-[![][size-badge]][size-link]
-
-[ci-badge]: https://github.com/clebert/otus/workflows/CI/badge.svg
-[ci-link]: https://github.com/clebert/otus
-[version-badge]: https://badgen.net/npm/v/otus
-[version-link]: https://www.npmjs.com/package/otus
-[license-badge]: https://badgen.net/npm/license/otus
-[license-link]: https://github.com/clebert/otus/blob/master/LICENSE
-[types-badge]: https://badgen.net/npm/types/otus
-[types-link]: https://github.com/clebert/otus
-[size-badge]: https://badgen.net/bundlephobia/minzip/otus
-[size-link]: https://bundlephobia.com/result?p=otus
-
-A modular JavaScript API for programming with
-[genetic algorithms](https://en.wikipedia.org/wiki/Genetic_algorithm).
+> A modular JavaScript API for programming with
+> [genetic algorithms](https://en.wikipedia.org/wiki/Genetic_algorithm).
 
 ## Installation
 
 ```
-npm install otus --save
+npm install otus
 ```
 
 ## Features
@@ -104,7 +89,7 @@ altered.
 ```ts
 type Gene<
   TGenotype extends Genotype,
-  TGeneName extends keyof TGenotype
+  TGeneName extends keyof TGenotype,
 > = ReturnType<TGenotype[TGeneName]>;
 ```
 
@@ -123,7 +108,7 @@ function.
 ```ts
 type SelectionOperator<TGenotype extends Genotype> = (
   phenotypes: readonly Phenotype<TGenotype>[],
-  fitnessFunction: FitnessFunction<TGenotype>
+  fitnessFunction: FitnessFunction<TGenotype>,
 ) => Phenotype<TGenotype>;
 ```
 
@@ -141,7 +126,7 @@ achieving the set aims.
 
 ```ts
 type FitnessFunction<TGenotype extends Genotype> = (
-  phenotype: Phenotype<TGenotype>
+  phenotype: Phenotype<TGenotype>,
 ) => number;
 ```
 
@@ -159,7 +144,7 @@ the genetic algorithm is more likely to create a better solution.
 ```ts
 type CrossoverOperator<TGenotype extends Genotype> = (
   phenotypeA: Phenotype<TGenotype>,
-  phenotypeB: Phenotype<TGenotype>
+  phenotypeB: Phenotype<TGenotype>,
 ) => Phenotype<TGenotype>;
 ```
 
@@ -177,7 +162,7 @@ stopping the solutions becoming too close to one another.
 ```ts
 type MutationOperator<TGenotype extends Genotype> = (
   phenotype: Phenotype<TGenotype>,
-  genotype: TGenotype
+  genotype: TGenotype,
 ) => Phenotype<TGenotype>;
 ```
 
@@ -186,13 +171,22 @@ type MutationOperator<TGenotype extends Genotype> = (
 ## Usage example
 
 ```js
-import * as otus from 'otus';
+import {
+  cacheFitnessFunction,
+  createFitnessProportionateSelectionOperator,
+  createFloatAllele,
+  createIntegerAllele,
+  createUniformCrossoverOperator,
+  createUniformMutationOperator,
+  geneticAlgorithm,
+  getFittestPhenotype,
+} from 'otus';
 ```
 
 ```js
 const smallNumberGenotype = {
-  base: otus.createFloatAllele(1, 10), // float between 1.0 (inclusive) and 10.0 (exclusive)
-  exponent: otus.createIntegerAllele(2, 4), // integer between 2 (inclusive) and 4 (inclusive)
+  base: createFloatAllele(1, 10), // float between 1.0 (inclusive) and 10.0 (exclusive)
+  exponent: createIntegerAllele(2, 4), // integer between 2 (inclusive) and 4 (inclusive)
 };
 ```
 
@@ -200,7 +194,7 @@ const smallNumberGenotype = {
 function isAnswerToEverything(smallNumberPhenotype) {
   const number = Math.pow(
     smallNumberPhenotype.base,
-    smallNumberPhenotype.exponent
+    smallNumberPhenotype.exponent,
   );
 
   return number === 42 ? Number.MAX_SAFE_INTEGER : 1 / Math.abs(42 - number);
@@ -208,36 +202,36 @@ function isAnswerToEverything(smallNumberPhenotype) {
 ```
 
 ```js
-let state = {
+const state = {
   genotype: smallNumberGenotype,
   phenotypes: [],
   populationSize: 100,
   elitePopulationSize: 2,
-  fitnessFunction: otus.cacheFitnessFunction(isAnswerToEverything),
-  selectionOperator: otus.createFitnessProportionateSelectionOperator(),
-  crossoverOperator: otus.createUniformCrossoverOperator(0.5),
-  mutationOperator: otus.createUniformMutationOperator(0.1),
+  fitnessFunction: cacheFitnessFunction(isAnswerToEverything),
+  selectionOperator: createFitnessProportionateSelectionOperator(),
+  crossoverOperator: createUniformCrossoverOperator(0.5),
+  mutationOperator: createUniformMutationOperator(0.1),
 };
 ```
 
 ```js
 for (let i = 0; i < 100; i += 1) {
-  state = otus.geneticAlgorithm(state);
+  state = geneticAlgorithm(state);
 }
 ```
 
 ```js
-const answerToEverythingPhenotype = otus.getFittestPhenotype(state);
+const answerToEverythingPhenotype = getFittestPhenotype(state);
 ```
 
 ```js
 console.log(
-  'The answer to everything:',
+  `The answer to everything:`,
   Math.pow(
     answerToEverythingPhenotype.base,
-    answerToEverythingPhenotype.exponent
+    answerToEverythingPhenotype.exponent,
   ),
-  answerToEverythingPhenotype
+  answerToEverythingPhenotype,
 );
 ```
 
@@ -251,7 +245,7 @@ The answer to everything: 42.00057578051458 { base: 3.4760425291663264, exponent
 
 ```ts
 function geneticAlgorithm<TGenotype extends Genotype>(
-  state: GeneticAlgorithmState<TGenotype>
+  state: GeneticAlgorithmState<TGenotype>,
 ): GeneticAlgorithmState<TGenotype>;
 ```
 
@@ -272,21 +266,21 @@ interface GeneticAlgorithmState<TGenotype extends Genotype> {
 
 ```ts
 function createFitnessProportionateSelectionOperator<
-  TGenotype extends Genotype
+  TGenotype extends Genotype,
 >(randomFunction?: () => number): SelectionOperator<TGenotype>;
 ```
 
 ```ts
 function createUniformCrossoverOperator<TGenotype extends Genotype>(
   probability: number,
-  randomFunction?: () => number
+  randomFunction?: () => number,
 ): CrossoverOperator<TGenotype>;
 ```
 
 ```ts
 function createUniformMutationOperator<TGenotype extends Genotype>(
   probability: number,
-  randomFunction?: () => number
+  randomFunction?: () => number,
 ): MutationOperator<TGenotype>;
 ```
 
@@ -296,7 +290,7 @@ function createUniformMutationOperator<TGenotype extends Genotype>(
 function createFloatAllele(
   min: number,
   max: number,
-  randomFunction?: () => number
+  randomFunction?: () => number,
 ): Allele<number>;
 ```
 
@@ -307,7 +301,7 @@ function createFloatAllele(
 function createIntegerAllele(
   min: number,
   max: number,
-  randomFunction?: () => number
+  randomFunction?: () => number,
 ): Allele<number>;
 ```
 
@@ -318,23 +312,18 @@ function createIntegerAllele(
 
 ```ts
 function getFittestPhenotype<TGenotype extends Genotype>(
-  state: GeneticAlgorithmState<TGenotype>
+  state: GeneticAlgorithmState<TGenotype>,
 ): Phenotype<TGenotype> | undefined;
 ```
 
 ```ts
 function cacheFitnessFunction<TGenotype extends Genotype>(
-  fitnessFunction: FitnessFunction<TGenotype>
+  fitnessFunction: FitnessFunction<TGenotype>,
 ): FitnessFunction<TGenotype>;
 ```
 
 ```ts
 function createRandomPhenotype<TGenotype extends Genotype>(
-  genotype: TGenotype
+  genotype: TGenotype,
 ): Phenotype<TGenotype>;
 ```
-
----
-
-Copyright (c) 2020-2021, Clemens Akens. Released under the terms of the
-[MIT License](https://github.com/clebert/otus/blob/master/LICENSE).

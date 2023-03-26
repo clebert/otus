@@ -1,4 +1,4 @@
-import {Allele} from './types';
+import {type Allele} from './types.js';
 
 /**
  * The created allele returns a random float between min (inclusive) and max (exclusive).
@@ -6,10 +6,10 @@ import {Allele} from './types';
 export function createFloatAllele(
   min: number,
   max: number,
-  randomFunction: () => number = Math.random
+  randomFunction: () => number = Math.random,
 ): Allele<number> {
   if (min >= max) {
-    throw new Error('The min must be less than the max.');
+    throw new Error(`The min must be less than the max.`);
   }
 
   // https://stackoverflow.com/a/1527820

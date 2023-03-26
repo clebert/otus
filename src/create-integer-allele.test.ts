@@ -1,19 +1,20 @@
-import * as otus from '.';
+import {describe, expect, jest, test} from '@jest/globals';
+import {createIntegerAllele} from './create-integer-allele.js';
 
-describe('createIntegerAllele()', () => {
-  test('invalid arguments', () => {
-    expect(() => otus.createIntegerAllele(1, 1)).toThrow(
-      new Error('The min must be less than the max.')
+describe(`createIntegerAllele()`, () => {
+  test(`invalid arguments`, () => {
+    expect(() => createIntegerAllele(1, 1)).toThrow(
+      new Error(`The min must be less than the max.`),
     );
 
-    expect(() => otus.createIntegerAllele(2, 1)).toThrow(
-      new Error('The min must be less than the max.')
+    expect(() => createIntegerAllele(2, 1)).toThrow(
+      new Error(`The min must be less than the max.`),
     );
   });
 
-  test('random integer generation', () => {
-    const randomFunction = jest.fn();
-    const integerAllele = otus.createIntegerAllele(-5, 5, randomFunction);
+  test(`random integer generation`, () => {
+    const randomFunction = jest.fn<() => number>();
+    const integerAllele = createIntegerAllele(-5, 5, randomFunction);
 
     randomFunction.mockReturnValueOnce(0.0);
     randomFunction.mockReturnValueOnce(0.1);

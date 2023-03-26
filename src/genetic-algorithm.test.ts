@@ -1,45 +1,65 @@
-import * as otus from '.';
+import {describe, expect, jest, test} from '@jest/globals';
+import {cacheFitnessFunction} from './cache-fitness-function.js';
+import {createFitnessProportionateSelectionOperator} from './create-fitness-proportionate-selection-operator.js';
+import {createFloatAllele} from './create-float-allele.js';
+import {createIntegerAllele} from './create-integer-allele.js';
+import {createUniformCrossoverOperator} from './create-uniform-crossover-operator.js';
+import {createUniformMutationOperator} from './create-uniform-mutation-operator.js';
+import {
+  type GeneticAlgorithmState,
+  geneticAlgorithm,
+} from './genetic-algorithm.js';
+import {getFittestPhenotype} from './get-fittest-phenotype.js';
+import {
+  type Allele,
+  type CrossoverOperator,
+  type FitnessFunction,
+  type Genotype,
+  type MutationOperator,
+  type Phenotype,
+  type SelectionOperator,
+} from './types.js';
 
-interface TestGenotype extends otus.Genotype {
-  readonly fitness: otus.Allele<number>;
+interface TestGenotype extends Genotype {
+  readonly fitness: Allele<number>;
 }
 
-describe('geneticAlgorithm()', () => {
-  test('invalid arguments', () => {
+describe(`geneticAlgorithm()`, () => {
+  test(`invalid arguments`, () => {
     expect(() =>
-      otus.geneticAlgorithm<TestGenotype>({
-        genotype: {fitness: jest.fn()},
+      geneticAlgorithm<TestGenotype>({
+        genotype: {fitness: jest.fn<Allele<number>>()},
         phenotypes: [{fitness: 75}, {fitness: 100}],
         populationSize: 1,
-        fitnessFunction: jest.fn(),
-        selectionOperator: jest.fn(),
-        crossoverOperator: jest.fn(),
-        mutationOperator: jest.fn(),
-      })
+        fitnessFunction: jest.fn<FitnessFunction<TestGenotype>>(),
+        selectionOperator: jest.fn<SelectionOperator<TestGenotype>>(),
+        crossoverOperator: jest.fn<CrossoverOperator<TestGenotype>>(),
+        mutationOperator: jest.fn<MutationOperator<TestGenotype>>(),
+      }),
     ).toThrow(
-      new Error('There are more phenotypes than the population size allows.')
+      new Error(`There are more phenotypes than the population size allows.`),
     );
 
     expect(() =>
-      otus.geneticAlgorithm({
+      geneticAlgorithm({
         genotype: {fitness: jest.fn()},
         phenotypes: [{fitness: 75}, {fitness: 100}],
         populationSize: 2,
         elitePopulationSize: 2,
-        fitnessFunction: jest.fn(),
-        selectionOperator: jest.fn(),
-        crossoverOperator: jest.fn(),
-        mutationOperator: jest.fn(),
-      })
+        fitnessFunction: jest.fn<FitnessFunction<Genotype>>(),
+        selectionOperator: jest.fn<SelectionOperator<Genotype>>(),
+        crossoverOperator: jest.fn<CrossoverOperator<Genotype>>(),
+        mutationOperator: jest.fn<MutationOperator<Genotype>>(),
+      }),
     ).toThrow(
       new Error(
-        'The elite population size must be smaller than the total population size.'
-      )
+        `The elite population size must be smaller than the total population size.`,
+      ),
     );
   });
 
-  test('elitism', () => {
-    const state = otus.geneticAlgorithm<TestGenotype>({
+  test(`elitism`, () => {
+    const state = geneticAlgorithm<TestGenotype>({
       genotype: {fitness: () => 0},
       phenotypes: [
         {fitness: 75},
@@ -50,12 +70,10 @@ describe('geneticAlgorithm()', () => {
       ],
       populationSize: 5,
       elitePopulationSize: 2,
-      fitnessFunction: otus.cacheFitnessFunction(
-        (phenotype) => phenotype.fitness
-      ),
-      selectionOperator: otus.createFitnessProportionateSelectionOperator(),
-      crossoverOperator: otus.createUniformCrossoverOperator(0),
-      mutationOperator: otus.createUniformMutationOperator(1),
+      fitnessFunction: cacheFitnessFunction((phenotype) => phenotype.fitness),
+      selectionOperator: createFitnessProportionateSelectionOperator(),
+      crossoverOperator: createUniformCrossoverOperator(0),
+      mutationOperator: createUniformMutationOperator(1),
     });
 
     expect(state.phenotypes).toEqual([
@@ -67,8 +85,8 @@ describe('geneticAlgorithm()', () => {
     ]);
   });
 
-  test('no elitism', () => {
-    const state = otus.geneticAlgorithm<TestGenotype>({
+  test(`no elitism`, () => {
+    const state = geneticAlgorithm<TestGenotype>({
       genotype: {fitness: () => 0},
       phenotypes: [
         {fitness: 75},
@@ -78,12 +96,10 @@ describe('geneticAlgorithm()', () => {
         {fitness: 100},
       ],
       populationSize: 5,
-      fitnessFunction: otus.cacheFitnessFunction(
-        (phenotype) => phenotype.fitness
-      ),
-      selectionOperator: otus.createFitnessProportionateSelectionOperator(),
-      crossoverOperator: otus.createUniformCrossoverOperator(0),
-      mutationOperator: otus.createUniformMutationOperator(1),
+      fitnessFunction: cacheFitnessFunction((phenotype) => phenotype.fitness),
+      selectionOperator: createFitnessProportionateSelectionOperator(),
+      crossoverOperator: createUniformCrossoverOperator(0),
+      mutationOperator: createUniformMutationOperator(1),
     });
 
     expect(state.phenotypes).toEqual([
@@ -95,18 +111,18 @@ describe('geneticAlgorithm()', () => {
     ]);
   });
 
-  test('answer to everything', () => {
+  test(`answer to everything`, () => {
     const smallNumberGenotype = {
-      base: otus.createFloatAllele(1, 10),
-      exponent: otus.createIntegerAllele(2, 4),
+      base: createFloatAllele(1, 10),
+      exponent: createIntegerAllele(2, 4),
     };
 
     function isAnswerToEverything(
-      smallNumberPhenotype: otus.Phenotype<typeof smallNumberGenotype>
+      smallNumberPhenotype: Phenotype<typeof smallNumberGenotype>,
     ): number {
       const number = Math.pow(
         smallNumberPhenotype.base,
-        smallNumberPhenotype.exponent
+        smallNumberPhenotype.exponent,
       );
 
       return number === 42
@@ -114,26 +130,26 @@ describe('geneticAlgorithm()', () => {
         : 1 / Math.abs(42 - number);
     }
 
-    let state: otus.GeneticAlgorithmState<typeof smallNumberGenotype> = {
+    let state: GeneticAlgorithmState<typeof smallNumberGenotype> = {
       genotype: smallNumberGenotype,
       phenotypes: [],
       populationSize: 100,
       elitePopulationSize: 2,
-      fitnessFunction: otus.cacheFitnessFunction(isAnswerToEverything),
-      selectionOperator: otus.createFitnessProportionateSelectionOperator(),
-      crossoverOperator: otus.createUniformCrossoverOperator(0.5),
-      mutationOperator: otus.createUniformMutationOperator(0.1),
+      fitnessFunction: cacheFitnessFunction(isAnswerToEverything),
+      selectionOperator: createFitnessProportionateSelectionOperator(),
+      crossoverOperator: createUniformCrossoverOperator(0.5),
+      mutationOperator: createUniformMutationOperator(0.1),
     };
 
     for (let i = 0; i < 100; i += 1) {
-      state = otus.geneticAlgorithm(state);
+      state = geneticAlgorithm(state);
     }
 
-    const answerToEverythingPhenotype = otus.getFittestPhenotype(state);
+    const answerToEverythingPhenotype = getFittestPhenotype(state);
 
     const answerToEverything = Math.pow(
       answerToEverythingPhenotype!.base,
-      answerToEverythingPhenotype!.exponent
+      answerToEverythingPhenotype!.exponent,
     );
 
     expect(answerToEverything).toBeGreaterThan(41);

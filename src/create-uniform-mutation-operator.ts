@@ -1,8 +1,8 @@
-import {Genotype, MutationOperator, Phenotype} from './types';
+import {type Genotype, type MutationOperator, type Phenotype} from './types.js';
 
 export function createUniformMutationOperator<TGenotype extends Genotype>(
   probability: number,
-  randomFunction: () => number = Math.random
+  randomFunction: () => number = Math.random,
 ): MutationOperator<TGenotype> {
   return (phenotype, genotype) =>
     Object.keys(phenotype).reduce((newPhenotype, geneName) => {

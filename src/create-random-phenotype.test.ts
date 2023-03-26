@@ -1,17 +1,16 @@
-import * as otus from '.';
+import {describe, expect, test} from '@jest/globals';
+import {createRandomPhenotype} from './create-random-phenotype.js';
+import {type Allele, type Genotype} from './types.js';
 
-interface TestGenotype extends otus.Genotype {
-  readonly geneA: otus.Allele<string>;
-  readonly geneB: otus.Allele<string>;
+interface TestGenotype extends Genotype {
+  readonly geneA: Allele<string>;
+  readonly geneB: Allele<string>;
 }
 
-describe('createRandomPhenotype()', () => {
-  test('random phenotype creation', () => {
+describe(`createRandomPhenotype()`, () => {
+  test(`random phenotype creation`, () => {
     expect(
-      otus.createRandomPhenotype<TestGenotype>({
-        geneA: () => 'a',
-        geneB: () => 'b',
-      })
-    ).toEqual({geneA: 'a', geneB: 'b'});
+      createRandomPhenotype<TestGenotype>({geneA: () => `a`, geneB: () => `b`}),
+    ).toEqual({geneA: `a`, geneB: `b`});
   });
 });

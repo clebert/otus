@@ -1,35 +1,44 @@
-import * as otus from '.';
+import {describe, expect, jest, test} from '@jest/globals';
+import {getFittestPhenotype} from './get-fittest-phenotype.js';
+import {
+  type Allele,
+  type CrossoverOperator,
+  type FitnessFunction,
+  type Genotype,
+  type MutationOperator,
+  type SelectionOperator,
+} from './types.js';
 
-interface TestGenotype extends otus.Genotype {
-  readonly fitness: otus.Allele<number>;
+interface TestGenotype extends Genotype {
+  readonly fitness: Allele<number>;
 }
 
-describe('getFittestPhenotype()', () => {
-  test('fittest phenotype', () => {
+describe(`getFittestPhenotype()`, () => {
+  test(`fittest phenotype`, () => {
     expect(
-      otus.getFittestPhenotype<TestGenotype>({
-        genotype: {fitness: jest.fn()},
+      getFittestPhenotype<TestGenotype>({
+        genotype: {fitness: jest.fn<Allele<number>>()},
         phenotypes: [{fitness: -100}, {fitness: 100}, {fitness: 0}],
         populationSize: 3,
         fitnessFunction: (phenotype) => phenotype.fitness,
-        selectionOperator: jest.fn(),
-        crossoverOperator: jest.fn(),
-        mutationOperator: jest.fn(),
-      })
+        selectionOperator: jest.fn<SelectionOperator<TestGenotype>>(),
+        crossoverOperator: jest.fn<CrossoverOperator<TestGenotype>>(),
+        mutationOperator: jest.fn<MutationOperator<TestGenotype>>(),
+      }),
     ).toEqual({fitness: 100});
   });
 
-  test('empty phenotypes', () => {
+  test(`empty phenotypes`, () => {
     expect(
-      otus.getFittestPhenotype<TestGenotype>({
-        genotype: {fitness: jest.fn()},
+      getFittestPhenotype<TestGenotype>({
+        genotype: {fitness: jest.fn<Allele<number>>()},
         phenotypes: [],
         populationSize: 3,
-        fitnessFunction: jest.fn(),
-        selectionOperator: jest.fn(),
-        crossoverOperator: jest.fn(),
-        mutationOperator: jest.fn(),
-      })
+        fitnessFunction: jest.fn<FitnessFunction<TestGenotype>>(),
+        selectionOperator: jest.fn<SelectionOperator<TestGenotype>>(),
+        crossoverOperator: jest.fn<CrossoverOperator<TestGenotype>>(),
+        mutationOperator: jest.fn<MutationOperator<TestGenotype>>(),
+      }),
     ).toBe(undefined);
   });
 });

@@ -1,7 +1,7 @@
-import {FitnessFunction, Genotype, Phenotype} from './types';
+import {type FitnessFunction, type Genotype, type Phenotype} from './types.js';
 
 export function cacheFitnessFunction<TGenotype extends Genotype>(
-  fitnessFunction: FitnessFunction<TGenotype>
+  fitnessFunction: FitnessFunction<TGenotype>,
 ): FitnessFunction<TGenotype> {
   const fitnessCache = new WeakMap<Phenotype<TGenotype>, number>();
 

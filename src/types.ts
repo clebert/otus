@@ -10,24 +10,24 @@ export type Phenotype<TGenotype extends Genotype> = {
 
 export type Gene<
   TGenotype extends Genotype,
-  TGeneName extends keyof TGenotype
+  TGeneName extends keyof TGenotype,
 > = ReturnType<TGenotype[TGeneName]>;
 
 export type SelectionOperator<TGenotype extends Genotype> = (
   phenotypes: readonly Phenotype<TGenotype>[],
-  fitnessFunction: FitnessFunction<TGenotype>
+  fitnessFunction: FitnessFunction<TGenotype>,
 ) => Phenotype<TGenotype>;
 
 export type FitnessFunction<TGenotype extends Genotype> = (
-  phenotype: Phenotype<TGenotype>
+  phenotype: Phenotype<TGenotype>,
 ) => number;
 
 export type CrossoverOperator<TGenotype extends Genotype> = (
   phenotypeA: Phenotype<TGenotype>,
-  phenotypeB: Phenotype<TGenotype>
+  phenotypeB: Phenotype<TGenotype>,
 ) => Phenotype<TGenotype>;
 
 export type MutationOperator<TGenotype extends Genotype> = (
   phenotype: Phenotype<TGenotype>,
-  genotype: TGenotype
+  genotype: TGenotype,
 ) => Phenotype<TGenotype>;

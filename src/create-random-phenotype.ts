@@ -1,7 +1,7 @@
-import {Genotype, Phenotype} from './types';
+import {type Genotype, type Phenotype} from './types.js';
 
 export function createRandomPhenotype<TGenotype extends Genotype>(
-  genotype: TGenotype
+  genotype: TGenotype,
 ): Phenotype<TGenotype> {
   return Object.keys(genotype).reduce((newPhenotype, geneName) => {
     newPhenotype[geneName] = genotype[geneName]!();
